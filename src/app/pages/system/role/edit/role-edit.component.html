@@ -1,0 +1,50 @@
+<app-edit-modal [saveCallback]="save" [(showModal)]="showModal" [formGroup]="editFormGroup">
+
+  <form nz-form [formGroup]="editFormGroup">
+
+    <nz-form-item>
+      <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired nzFor="roleName">角色名称</nz-form-label>
+      <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="请输入角色名称!">
+        <nz-input-group nzPrefixIcon="edit">
+          <input type="text" nz-input formControlName="roleName" placeholder="请输入角色名称"/>
+        </nz-input-group>
+      </nz-form-control>
+    </nz-form-item>
+
+    <nz-form-item>
+      <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="description">角色描述</nz-form-label>
+      <nz-form-control [nzSm]="14" [nzXs]="24">
+        <nz-input-group nzPrefixIcon="edit">
+          <input type="text" nz-input formControlName="description" placeholder="请输入角色描述"/>
+        </nz-input-group>
+      </nz-form-control>
+    </nz-form-item>
+
+    <nz-form-item>
+      <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired nzFor="roleStatus">角色状态</nz-form-label>
+      <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="请选择角色状态!">
+        <nz-radio-group formControlName="roleStatus">
+          <label nz-radio nzValue="0">启用</label>
+          <label nz-radio nzValue="1">禁用</label>
+        </nz-radio-group>
+      </nz-form-control>
+    </nz-form-item>
+
+    <nz-form-item>
+      <nz-form-label [nzSm]="6" [nzXs]="24">菜单权限</nz-form-label>
+      <nz-form-control [nzSm]="14" [nzXs]="24" >
+        <nz-tree-select
+          #menuBtnTree
+          formControlName="menuButtonIds"
+          [nzCheckStrictly]="true"
+          [nzNodes]="menuTreeList"
+          [nzExpandedKeys]="expandedMenuIds"
+          [nzDropdownStyle]="{height: '40vh'}"
+          nzCheckable nzPlaceHolder="请选择菜单权限">
+        </nz-tree-select>
+      </nz-form-control>
+    </nz-form-item>
+
+  </form>
+
+</app-edit-modal>

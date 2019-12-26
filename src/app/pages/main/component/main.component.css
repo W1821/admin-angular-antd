@@ -1,0 +1,94 @@
+:host {
+  display: flex;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+nz-header {
+  padding: 0;
+  width: 100%;
+  z-index: 2;
+}
+
+nz-breadcrumb {
+  margin: 16px 0;
+}
+
+nz-content {
+  padding: 24px;
+  background: #fff;
+  overflow-y:scroll
+}
+
+nz-sider {
+  overflow: auto;
+  height: 100%;
+  position: fixed;
+  left: 0;
+}
+
+nz-footer {
+  text-align: center;
+}
+
+.app-layout {
+  height: 100vh;
+}
+
+.logo {
+  width: 208px;
+  height: 32px;
+  line-height: 32px;
+  background: url("../../../../assets/images/logo.png") no-repeat;
+  background-size: 100% 100%;
+  margin: 16px;
+  float: left;
+}
+
+.header-menu {
+  line-height: 64px;
+}
+
+.menu-sidebar {
+  position: relative;
+  z-index: 10;
+  box-shadow: 2px 0 6px rgba(0, 21, 41, .35);
+}
+
+.right-layout {
+  padding: 0 24px;
+}
+
+.header-trigger {
+  height: 64px;
+  padding: 20px 24px;
+  font-size: 20px;
+  cursor: pointer;
+  transition: all .3s, padding 0s;
+}
+
+.trigger:hover {
+  color: #1890ff;
+}
+
+.user-info {
+  width: 200px;
+  height: 32px;
+  line-height: 32px;
+  margin: 16px 0 0 0;
+  float: right;
+  font-size: 24px;
+}
+
+.user-info .avatar {
+  float: left;
+  margin-top: 0;
+  margin-right: 8px;
+}
+
+.user-info .opt-button {
+  float: left;
+  width: 120px;
+}
+

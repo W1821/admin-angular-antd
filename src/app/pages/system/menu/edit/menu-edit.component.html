@@ -1,0 +1,99 @@
+<app-edit-modal
+  [saveCallback]="save"
+  [(showModal)]="showEditModal"
+  [formGroup]="formGroup"
+  [afterClose]="afterCloseModal">
+  <form nz-form [formGroup]="formGroup">
+
+    <nz-form-item>
+      <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="pid">上级菜单</nz-form-label>
+      <nz-form-control [nzSm]="14" [nzXs]="24">
+        <nz-select formControlName="pid" nzAllowClear nzPlaceHolder="请选择上级菜单" (ngModelChange)="changePid($event)">
+          <nz-option *ngFor="let option of menuList" [nzValue]="option.id" [nzLabel]="option.showName"></nz-option>
+        </nz-select>
+      </nz-form-control>
+    </nz-form-item>
+
+    <nz-form-item>
+      <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired nzFor="menuName">菜单名称</nz-form-label>
+      <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="请输入菜单名称!">
+        <nz-input-group nzPrefixIcon="edit">
+          <input type="text" nz-input formControlName="menuName" placeholder="请输入菜单名称"/>
+        </nz-input-group>
+      </nz-form-control>
+    </nz-form-item>
+
+    <nz-form-item>
+      <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="routePath">菜单路由</nz-form-label>
+      <nz-form-control [nzSm]="14" [nzXs]="24">
+        <nz-input-group nzPrefixIcon="edit">
+          <input type="text" nz-input formControlName="routePath" placeholder="请输入菜单路由"/>
+        </nz-input-group>
+      </nz-form-control>
+    </nz-form-item>
+
+    <nz-form-item>
+      <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="icon">菜单图标</nz-form-label>
+      <nz-form-control [nzSm]="14" [nzXs]="24">
+        <nz-input-group [nzSuffix]="suffixButton" [nzPrefix]="prefixIcon" (click)="openSelectIconModal()">
+          <input type="text" nz-input formControlName="icon" readonly placeholder="请输入菜单图标" class="icon-input"/>
+        </nz-input-group>
+        <ng-template #prefixIcon><i nz-icon nzType="{{this.formGroup.get('icon').value}}"></i></ng-template>
+        <ng-template #suffixButton>
+          <i nz-icon nz-tooltip nzTitle="点击选择图标" nzType="search"></i>
+        </ng-template>
+      </nz-form-control>
+    </nz-form-item>
+
+    <nz-form-item>
+      <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="rank">排序值</nz-form-label>
+      <nz-form-control [nzSm]="14" [nzXs]="24">
+        <nz-input-group nzPrefixIcon="edit">
+          <input type="text" nz-input formControlName="rank" placeholder="请输入排序值，升序显示"/>
+        </nz-input-group>
+      </nz-form-control>
+    </nz-form-item>
+
+    <nz-form-item>
+      <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="actions">注册请求</nz-form-label>
+      <nz-form-control [nzSm]="14" [nzXs]="24">
+        <nz-input-group nzPrefixIcon="edit">
+          <input type="text" nz-input formControlName="actions" placeholder="请输入注册请求"/>
+        </nz-input-group>
+      </nz-form-control>
+    </nz-form-item>
+
+    <ng-container *ngIf="this.canShowAddButton">
+      <nz-divider></nz-divider>
+
+      <ng-container>
+        <nz-form-item>
+          <nz-form-control [nzOffset]="6" [nzSm]="14" [nzXs]="24">
+            <button nz-button (click)="openButtonModal(null, null)">
+              <i nz-icon nzType="plus"></i>添加按钮
+            </button>
+          </nz-form-control>
+        </nz-form-item>
+
+        <nz-form-item>
+          <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="buttons">注册按钮</nz-form-label>
+          <nz-form-control [nzSm]="14" [nzXs]="24">
+            <nz-tag *ngFor="let button of buttons; index as i" nzMode="closeable" [nzColor]="'blue'"
+                    (click)="openButtonModal(i, button)"
+                    (nzOnClose)="onButtonClose(button)">
+              {{button.buttonName}}
+            </nz-tag>
+          </nz-form-control>
+        </nz-form-item>
+      </ng-container>
+    </ng-container>
+
+  </form>
+</app-edit-modal>
+
+
+<app-menu-button-modal #buttonEditModal (buttonBack)="editButtonSuccess($event)">
+</app-menu-button-modal>
+
+<app-menu-icon-modal [(showModal)]="showSelectIconModal" (selectIconBack)="selectIconBack($event)">
+</app-menu-icon-modal>

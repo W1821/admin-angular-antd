@@ -1,0 +1,78 @@
+<app-search-form *ngIf="authButtons.search" [searchBody]="searchBody" [searchFunction]="search">
+  <nz-form-item>
+    <nz-form-control>
+      <nz-input-group nzPrefixIcon="user">
+        <input nz-input [(ngModel)]="searchBody.roleName" placeholder="输入角色名称查询"/>
+      </nz-input-group>
+    </nz-form-control>
+  </nz-form-item>
+  <nz-form-item>
+    <nz-form-control>
+      <nz-select [(ngModel)]="searchBody.roleStatus" nzAllowClear nzPlaceHolder="选择状态查询">
+        <nz-option nzValue="0" nzLabel="启用"></nz-option>
+        <nz-option nzValue="1" nzLabel="禁用"></nz-option>
+      </nz-select>
+    </nz-form-control>
+  </nz-form-item>
+</app-search-form>
+
+<ng-container *ngIf="authButtons.add">
+  <button nz-button nzBlock nzType="dashed" (click)="add()">
+    <i nz-icon nzType="plus"></i>添加
+  </button>
+  <nz-divider></nz-divider>
+</ng-container>
+
+<nz-table #nzTable
+          [nzData]="dataList"
+          [nzFrontPagination]="false"
+          [nzTotal]="totalRows"
+          [(nzPageIndex)]="pageBody.index"
+          [(nzPageSize)]="pageBody.size"
+          (nzPageIndexChange)="onPageIndexChange()"
+          [nzBordered]="true">
+  <thead>
+  <tr>
+    <th>角色名称</th>
+    <th>角色描述</th>
+    <th>角色状态</th>
+    <th>创建时间</th>
+    <th *ngIf="authButtons.edit || authButtons.delete">操作</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr *ngFor="let row of nzTable.data">
+    <td>{{ row.roleName }}</td>
+    <td>{{ row.description }}</td>
+    <td>
+      <nz-tag [nzColor]="row.roleStatus === '0' ? 'green':'red'">
+        {{ row.roleStatus === '0' ? '启用' : '禁用' }}
+      </nz-tag>
+    </td>
+    <td>{{ row.createTime }}</td>
+
+    <td *ngIf="authButtons.edit || authButtons.delete">
+
+      <button *ngIf="authButtons.edit" nz-button nzType="primary" [nzSize]="'small'" (click)="edit(row)">
+        <i nz-icon nzType="edit" nzTheme="outline"></i>修改
+      </button>
+
+      <nz-divider *ngIf="authButtons.edit && authButtons.delete" nzType="vertical"></nz-divider>
+
+      <button *ngIf="authButtons.delete"
+              nz-button
+              nzType="danger"
+              [nzSize]="'small'"
+              nz-popconfirm
+              nzPopconfirmPlacement="top"
+              nzPopconfirmTitle="确认删除角色：{{row.roleName}}吗?"
+              (nzOnConfirm)="delete(row)">
+        <i nz-icon nzType="delete" nzTheme="outline"></i>删除
+      </button>
+
+    </td>
+  </tr>
+  </tbody>
+</nz-table>
+
+<app-role-edit *ngIf="authButtons.add || authButtons.edit" #roleEdit (saveRole)="search()"></app-role-edit>

@@ -1,0 +1,72 @@
+<div (keydown.enter)="login()">
+
+  <nz-layout class="login-layout">
+    <nz-content class="login-bg">
+
+      <div nz-row class="login-title-row">
+        <div class="login-title">
+          <i nz-icon nzType="user" nzTheme="outline"></i>xxx管理系统
+        </div>
+      </div>
+
+      <!-- 登录错误提示 start -->
+      <div nz-row>
+        <div nz-col
+             [nzXXl]="{ span: 4, offset: 10 }"
+             [nzSm]="{ span: 6, offset: 9 }"
+             [nzXs]="{ span: 16, offset: 4 }">
+          <nz-alert nzType='error'
+                    nzShowIcon
+                    [ngStyle]="errorMsg ? {display:'block'} : {display: 'none'}"
+                    nzMessage='{{errorMsg}}'>
+          </nz-alert>
+        </div>
+      </div>
+      <!-- 登录错误提示 end -->
+
+      <!-- 登录加载圈 start -->
+      <div class='center'>
+        <nz-spin nzSimple [nzSize]="'large'" nzSpinning="{{loading}}"></nz-spin>
+      </div>
+      <!-- 登录加载圈 end -->
+
+      <!-- 登录表单 start -->
+      <div nz-row nzType='flex' nzAlign="middle">
+        <div nz-col
+             [nzXXl]="{ span: 4, offset: 10 }"
+             [nzSm]="{ span: 6, offset: 9 }"
+             [nzXs]="{ span: 16, offset: 4 }">
+
+          <form nz-form [formGroup]="validateForm" (ngSubmit)="login()">
+            <nz-form-item>
+              <nz-form-control nzErrorTip="请输入用户名或手机号!">
+                <nz-input-group nzPrefixIcon="user">
+                  <input type="text" nz-input formControlName="userName" placeholder="用户名或手机号"/>
+                </nz-input-group>
+              </nz-form-control>
+            </nz-form-item>
+            <nz-form-item>
+              <nz-form-control nzErrorTip="请输入密码!">
+                <nz-input-group nzPrefixIcon="lock">
+                  <input type="password" nz-input formControlName="password" placeholder="密码"/>
+                </nz-input-group>
+              </nz-form-control>
+            </nz-form-item>
+            <nz-form-item>
+              <nz-form-control>
+                <label nz-checkbox formControlName="remember">
+                  <span>Remember me</span>
+                </label>
+                <button nz-button class="login-form-button" [nzType]="'primary'">登录</button>
+              </nz-form-control>
+            </nz-form-item>
+          </form>
+
+        </div>
+      </div>
+      <!-- 登录表单 end -->
+
+    </nz-content>
+  </nz-layout>
+
+</div>

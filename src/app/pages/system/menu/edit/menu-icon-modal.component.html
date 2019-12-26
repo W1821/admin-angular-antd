@@ -1,0 +1,30 @@
+<nz-modal
+  [nzWidth]="'70%'"
+  [(nzVisible)]="showModal"
+  nzTitle="选择图标"
+  [nzOkText]="null"
+  (nzOnCancel)="handleCancel()"
+  (nzAfterOpen)="handleAfterOpen()"
+  nzMaskClosable=false>
+  <nz-layout>
+    <nz-content>
+      <nz-tabset>
+
+        <ng-container *ngFor="let t of tabTitles; index as i">
+          <nz-tab nzTitle="{{t}}">
+            <nz-card [nzLoading]="loading" [nzBordered]="false" [nzBodyStyle]="{cursor: 'pointer'}">
+              <div nz-row [nzGutter]="2">
+                <div nz-col [nzSpan]="2" *ngFor="let row of tabContents[i]" (click)="selectIcon(row)">
+                  <nz-card class="grid-style">
+                    <i nz-icon nzType="{{row}}" nzTheme="outline"></i>
+                  </nz-card>
+                </div>
+              </div>
+            </nz-card>
+          </nz-tab>
+        </ng-container>
+
+      </nz-tabset>
+    </nz-content>
+  </nz-layout>
+</nz-modal>

@@ -1,0 +1,17 @@
+<form nz-form [nzLayout]="'inline'" class="search-form">
+
+  <ng-content></ng-content>
+
+  <nz-form-item>
+    <nz-form-control>
+      <button nz-button nzType="primary" (click)="doSearch()"><i nz-icon nzType="search"></i>查 询</button>
+    </nz-form-control>
+  </nz-form-item>
+
+  <nz-form-item>
+    <nz-form-control>
+      <button nz-button (click)="clear()" ><i nz-icon nzType="delete"></i>重 置</button>
+    </nz-form-control>
+  </nz-form-item>
+
+</form>

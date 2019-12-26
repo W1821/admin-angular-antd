@@ -1,0 +1,18 @@
+<app-img-cropper
+  (imagePathBack)="getImagePath($event)"
+  [uploadUrl]="'file/upload/base64'"
+  [imageUrl]="headPictureUrl"
+  [aspectRatio]="1">
+</app-img-cropper>
+
+<nz-card>
+  <nz-statistic
+    [nzValue]="111.28 | number: '1.0-2'"
+    [nzTitle]="'Active'"
+    [nzPrefix]="prefixTplOne"
+    [nzSuffix]="'%'"
+    [nzValueStyle]="{ color: '#3F8600' }"
+  >
+  </nz-statistic>
+  <ng-template #prefixTplOne><i nz-icon nzType="arrow-up"></i></ng-template>
+</nz-card>

@@ -1,0 +1,62 @@
+<nz-modal
+  [(nzVisible)]="showModal"
+  [nzWidth]="'40%'"
+  [nzStyle]="{ top: '25vh' }"
+  nzTitle="增加修改注册按钮"
+  (nzOnCancel)="handleCancel()"
+  (nzOnOk)="handleOk()"
+  nzMaskClosable=false
+>
+
+  <div nz-row>
+    <nz-radio-group nz-col
+                    [nzPush]="6"
+                    [nzSm]="14"
+                    [nzXs]="24"
+                    [nzButtonStyle]="'solid'"
+                    [(ngModel)]="buttonType"
+                    (ngModelChange)="changeButtonType($event)">
+      <label nz-radio-button nzValue="search-查询"><i nz-icon nzType="search"></i>查询</label>
+      <label nz-radio-button nzValue="add-增加"><i nz-icon nzType="plus"></i>增加</label>
+      <label nz-radio-button nzValue="edit-编辑"><i nz-icon nzType="edit"></i>编辑</label>
+      <label nz-radio-button nzValue="delete-删除"><i nz-icon nzType="delete"></i>删除</label>
+      <label nz-radio-button nzValue="other-其他"><i nz-icon nzType="menu"></i>其他</label>
+    </nz-radio-group>
+  </div>
+
+  <nz-divider></nz-divider>
+
+  <form nz-form [formGroup]="validateForm">
+
+    <nz-form-item>
+      <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired nzFor="buttonName">按钮名称</nz-form-label>
+      <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="请输入按钮名称">
+        <nz-input-group nzPrefixIcon="edit">
+          <input type="text" nz-input formControlName="buttonName" placeholder="请输入按钮名称"/>
+        </nz-input-group>
+      </nz-form-control>
+    </nz-form-item>
+
+    <nz-form-item>
+      <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired nzFor="code">按钮标识</nz-form-label>
+      <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="请输入按钮名称">
+        <nz-input-group nzPrefixIcon="edit">
+          <input type="text" nz-input formControlName="code" placeholder="请输入按钮标识"/>
+        </nz-input-group>
+      </nz-form-control>
+    </nz-form-item>
+
+    <nz-form-item>
+      <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="actions">注册请求</nz-form-label>
+      <nz-form-control [nzSm]="14" [nzXs]="24">
+        <nz-input-group nzPrefixIcon="edit">
+          <input type="text" nz-input formControlName="actions" placeholder="请输入注册请求"/>
+        </nz-input-group>
+      </nz-form-control>
+    </nz-form-item>
+
+  </form>
+
+</nz-modal>
+
+

@@ -1,0 +1,27 @@
+<nz-modal
+  nzTitle="上传图片"
+  [(nzVisible)]="showUploadImageModal"
+  (nzOnCancel)="handleUploadImageCancel()"
+  (nzOnOk)="handleUploadImageOk()"
+  [nzOkLoading]="isUploadImageLoading"
+  [nzWidth]="'50%'"
+  nzMaskClosable=false>
+
+  <ng-container *ngIf="selectedImageUrl">
+    <angular-cropper #angularCropper [cropperOptions]="config" [imageUrl]="selectedImageUrl"></angular-cropper>
+  </ng-container>
+
+</nz-modal>
+
+<nz-upload
+  nzAction=""
+  nzListType="picture-card"
+  [nzAccept]="'image/*'"
+  [nzShowUploadList]="false"
+  [nzBeforeUpload]="beforeUpload">
+  <ng-container *ngIf="!imageUrl">
+    <i class="upload-icon" nz-icon [nzType]="'plus'"></i>
+    <div class="ant-upload-text">上传图片</div>
+  </ng-container>
+  <img *ngIf="imageUrl" [src]="imageUrl" [ngStyle]="{ width: '100%' }" alt=""/>
+</nz-upload>

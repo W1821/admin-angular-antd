@@ -1,0 +1,34 @@
+<nz-modal
+  [(nzVisible)]="showModifyPwdModal"
+  nzTitle="修改密码"
+  (nzOnCancel)="handleModifyPwdCancel()"
+  (nzOnOk)="handleModifyPwdOk()"
+  [nzOkLoading]="isModifyPwdLoading"
+  nzMaskClosable=false>
+
+  <form nz-form [formGroup]="validateForm" (ngSubmit)="modifyPwd()">
+    <nz-form-item>
+      <nz-form-control nzErrorTip="请输入旧密码!">
+        <nz-input-group nzPrefixIcon="eye">
+          <input type="password" nz-input formControlName="oldPwd" placeholder="旧密码"/>
+        </nz-input-group>
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+      <nz-form-control nzErrorTip="请输入新密码!">
+        <nz-input-group nzPrefixIcon="lock">
+          <input type="password" nz-input formControlName="newPwd" placeholder="新密码"/>
+        </nz-input-group>
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+      <nz-form-control nzErrorTip="请再次输入新密码!">
+        <nz-input-group nzPrefixIcon="lock">
+          <input type="password" nz-input formControlName="verifiedPwd" placeholder="新密码"/>
+        </nz-input-group>
+      </nz-form-control>
+    </nz-form-item>
+  </form>
+</nz-modal>
+
+

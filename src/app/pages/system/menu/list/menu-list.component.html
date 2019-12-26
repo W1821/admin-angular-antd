@@ -1,0 +1,63 @@
+<ng-container *ngIf="authButtons.add">
+  <button nz-button nzBlock nzType="dashed" (click)="add(null)">
+    <i nz-icon nzType="plus"></i>添加
+  </button>
+  <nz-divider></nz-divider>
+</ng-container>
+
+<nz-table #nzTable
+          [nzData]="dataList"
+          [nzFrontPagination]="false"
+          [nzBordered]="true">
+  <thead>
+  <tr>
+    <th>菜单名称</th>
+    <th>图标</th>
+    <th>菜单路由</th>
+    <th>排序</th>
+    <th *ngIf="authButtons.addSub || authButtons.edit || authButtons.delete">操作</th>
+  </tr>
+  </thead>
+  <tbody>
+
+  <tr *ngFor="let row of nzTable.data">
+    <td>{{ row.showName }}</td>
+    <td><i nz-icon nzType="{{ row.icon }}" nzTheme="outline"></i></td>
+    <td>{{ row.routePath }}</td>
+    <td>{{ row.rank }}</td>
+    <td *ngIf="authButtons.addSub || authButtons.edit || authButtons.delete">
+
+      <button *ngIf="authButtons.edit" nz-button nzType="primary" [nzSize]="'small'" (click)="edit(row)">
+        <i nz-icon nzType="edit" nzTheme="outline"></i>修改
+      </button>
+
+      <nz-divider *ngIf="authButtons.edit && authButtons.delete" nzType="vertical"></nz-divider>
+
+      <button *ngIf="authButtons.delete"
+              nz-button
+              nzType="danger"
+              [nzSize]="'small'"
+              nz-popconfirm
+              nzPopconfirmPlacement="top"
+              nzPopconfirmTitle="确认删除菜单：{{row.menuName}}吗?"
+              (nzOnConfirm)="delete(row)">
+        <i nz-icon nzType="delete" nzTheme="outline"></i>删除
+      </button>
+
+      <ng-container *ngIf="row.pids.split(',').length < 2">
+        <nz-divider *ngIf="authButtons.edit || authButtons.delete" nzType="vertical"></nz-divider>
+        <button *ngIf="authButtons.addSub" nz-button nzType="default" [nzSize]="'small'" (click)="add(row.id)">
+          <i nz-icon nzType="plus-square" nzTheme="outline"></i>添加下级
+        </button>
+      </ng-container>
+
+    </td>
+  </tr>
+  </tbody>
+</nz-table>
+
+<app-menu-edit *ngIf="authButtons.add || authButtons.addSub || authButtons.edit"
+               #menuEdit (saveMenuEvent)="search()"
+               [dataList]="dataList">
+</app-menu-edit>
+

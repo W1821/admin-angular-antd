@@ -1,0 +1,86 @@
+<app-search-form *ngIf="authButtons.search" [searchBody]="searchBody" [searchFunction]="search">
+  <nz-form-item>
+    <nz-form-control>
+      <nz-input-group nzPrefixIcon="user">
+        <input nz-input [(ngModel)]="searchBody.userName" placeholder="输入用户名称查询"/>
+      </nz-input-group>
+    </nz-form-control>
+  </nz-form-item>
+  <nz-form-item>
+    <nz-form-control>
+      <nz-input-group nzPrefixIcon="phone">
+        <input nz-input [(ngModel)]="searchBody.phoneNumber" placeholder="输入手机号码查询"/>
+      </nz-input-group>
+    </nz-form-control>
+  </nz-form-item>
+</app-search-form>
+
+<ng-container *ngIf="authButtons.add">
+  <button nz-button nzBlock nzType="dashed" (click)="add()">
+    <i nz-icon nzType="plus"></i>添加
+  </button>
+  <nz-divider></nz-divider>
+</ng-container>
+
+<nz-table #nzTable
+          [nzData]="dataList"
+          [nzFrontPagination]="false"
+          [nzTotal]="totalRows"
+          [(nzPageIndex)]="pageBody.index"
+          [(nzPageSize)]="pageBody.size"
+          (nzPageIndexChange)="onPageIndexChange()"
+          [nzBordered]="true">
+  <thead>
+  <tr>
+    <th>头像</th>
+    <th>手机号码</th>
+    <th>用户名</th>
+    <th>帐号状态</th>
+    <th>创建时间</th>
+    <th>角色</th>
+    <th *ngIf="authButtons.edit || authButtons.delete">操作</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr *ngFor="let row of nzTable.data">
+    <td>
+      <nz-avatar nzIcon="user" nzSrc="{{ row.headPictureUrl }}"></nz-avatar>
+    </td>
+    <td>{{ row.phoneNumber }}</td>
+    <td>{{ row.userName }}</td>
+    <td>
+      <nz-tag [nzColor]="row.accountStatus === '0' ? 'green':'red'">
+        {{ row.accountStatus === '0' ? '可用' : '不可用' }}
+      </nz-tag>
+    </td>
+    <td>{{ row.createTime }}</td>
+    <td>
+      <nz-tag *ngFor="let role of row.roles" [nzColor]="'blue'">{{ role.roleName }}</nz-tag>
+    </td>
+    <td *ngIf="authButtons.edit || authButtons.delete">
+
+      <button *ngIf="authButtons.edit" nz-button nzType="primary" [nzSize]="'small'" (click)="edit(row)">
+        <i nz-icon nzType="edit" nzTheme="outline"></i>修改
+      </button>
+
+      <nz-divider *ngIf="authButtons.edit && authButtons.delete" nzType="vertical"></nz-divider>
+
+      <button *ngIf="authButtons.delete"
+              nz-button
+              nzType="danger"
+              [nzSize]="'small'"
+              nz-popconfirm
+              nzPopconfirmPlacement="top"
+              nzPopconfirmTitle="确认删除用户：{{row.userName}}吗?"
+              (nzOnConfirm)="delete(row)">
+        <i nz-icon nzType="delete" nzTheme="outline"></i>删除
+      </button>
+
+
+    </td>
+  </tr>
+  </tbody>
+</nz-table>
+
+<app-user-edit *ngIf="authButtons.add || authButtons.edit" #userEdit (saveUser)="search()"></app-user-edit>
+

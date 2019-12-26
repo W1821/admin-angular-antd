@@ -1,0 +1,109 @@
+<nz-layout class="app-layout">
+
+  <!-- 头部 start -->
+  <nz-header>
+
+    <!-- logo图片 -->
+    <div class="logo"></div>
+
+    <!-- 头部右边用户信息及退出 start -->
+    <div class='user-info'>
+      <nz-avatar class='avatar' nzIcon='user' nzSrc="{{this.loginService.getUserInfo.headPictureUrl}}"></nz-avatar>
+      <button class="opt-button" nz-button nz-dropdown [nzDropdownMenu]="menu">
+        {{this.loginService.getUserInfo.userName}}<i nz-icon nzType="down"></i>
+      </button>
+      <nz-dropdown-menu #menu="nzDropdownMenu">
+        <ul nz-menu>
+          <li nz-menu-item><a (click)="openModifyPwdModal()">修改密码</a></li>
+          <li nz-menu-item><a (click)="logout()">退出</a></li>
+        </ul>
+      </nz-dropdown-menu>
+    </div>
+    <!-- 头部右边用户信息及退出 end -->
+
+    <!-- 头部一级菜单 start -->
+    <ul nz-menu nzTheme="dark" nzMode="horizontal" class="header-menu">
+      <li *ngFor="let menu of this.mainService.getMenuTreeData();"
+          nz-menu-item
+          (click)="clickHeaderMenu(menu)"
+          nzSelected="{{menu.isChecked}}">
+        <i nz-icon nzType="{{menu.icon}}"></i>{{menu.menuName}}
+      </li>
+    </ul>
+    <!-- 头部一级菜单 end -->
+
+  </nz-header>
+  <!-- 头部 end -->
+
+  <!-- 中间部分 start -->
+  <nz-layout>
+
+    <!-- 左边二、三级菜单 start -->
+    <nz-sider
+      class="menu-sidebar"
+      nzTheme="light"
+      nzCollapsible
+      nzWidth="240px"
+      nzBreakpoint="md"
+      [(nzCollapsed)]="isCollapsed"
+      [nzTrigger]="null">
+      <ul nz-menu nzMode="inline" [nzInlineCollapsed]="isCollapsed">
+        <li *ngFor="let leftMenu of leftMenuDataArr;"
+            nz-submenu
+            nzOpen="{{leftMenu.isChecked}}"
+            nzIcon="{{leftMenu.icon}}"
+            (click)="clickLeftMenu(leftMenu)"
+            nzTitle="{{leftMenu.menuName}}">
+          <ul>
+            <li *ngFor="let subMenu of leftMenu.children;"
+                nz-menu-item
+                (click)="$event.stopPropagation(); clickSubMenu(subMenu)"
+                nzSelected="{{subMenu.isChecked}}">
+              {{subMenu.menuName}}
+            </li>
+          </ul>
+        </li>
+      </ul>
+    </nz-sider>
+    <!-- 左边二、三级菜单 end -->
+
+    <!-- 右边内容 start -->
+    <nz-layout class="right-layout">
+
+      <!-- 面包屑 start -->
+      <nz-breadcrumb>
+        <nz-breadcrumb-item>
+            <span class="header-trigger" (click)="isCollapsed = !isCollapsed">
+              <i class="trigger" nz-icon [nzType]="isCollapsed ? 'menu-unfold' : 'menu-fold'"></i>
+            </span>
+        </nz-breadcrumb-item>
+
+        <nz-breadcrumb-item *ngIf="breadcrumb.rootName">{{breadcrumb.rootName}}</nz-breadcrumb-item>
+        <nz-breadcrumb-item *ngIf="breadcrumb.leftName">{{breadcrumb.leftName}}</nz-breadcrumb-item>
+        <nz-breadcrumb-item *ngIf="breadcrumb.subName">{{breadcrumb.subName}}</nz-breadcrumb-item>
+
+      </nz-breadcrumb>
+      <!-- 面包屑 end -->
+
+      <!-- 内容页 start -->
+      <nz-content>
+        <router-outlet></router-outlet>
+      </nz-content>
+      <!-- 内容页 end -->
+
+    </nz-layout>
+    <!-- 右边内容 end -->
+
+  </nz-layout>
+  <!-- 中间部分 end -->
+
+  <!-- 脚部 start -->
+  <nz-footer>xxxx</nz-footer>
+  <!-- 脚部 end -->
+
+</nz-layout>
+
+<!-- 修改密码弹窗 start -->
+<app-modify-pwd-modal [(showModifyPwdModal)]="showModifyPwdModal"></app-modify-pwd-modal>
+<!-- 修改密码弹窗 end -->
+

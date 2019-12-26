@@ -1,0 +1,63 @@
+<app-edit-modal [saveCallback]="save" [(showModal)]="showModal" [formGroup]="formGroup">
+
+  <form nz-form [formGroup]="formGroup">
+
+    <nz-form-item>
+      <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired nzFor="userName">用户名</nz-form-label>
+      <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="请输入用户名!">
+        <nz-input-group nzPrefixIcon="edit">
+          <input type="text" nz-input formControlName="userName" placeholder="请输入用户名"/>
+        </nz-input-group>
+      </nz-form-control>
+    </nz-form-item>
+
+    <nz-form-item>
+      <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired nzFor="phoneNumber">手机号码</nz-form-label>
+      <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="请输入手机号码!">
+        <nz-input-group nzPrefixIcon="edit">
+          <input type="text" nz-input formControlName="phoneNumber" placeholder="请输入手机号码"/>
+        </nz-input-group>
+      </nz-form-control>
+    </nz-form-item>
+
+    <nz-form-item>
+      <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="password">密码</nz-form-label>
+      <nz-form-control [nzSm]="14" [nzXs]="24">
+        <nz-input-group nzPrefixIcon="edit">
+          <input type="password" nz-input formControlName="password" placeholder="请输入密码"/>
+        </nz-input-group>
+      </nz-form-control>
+    </nz-form-item>
+
+    <nz-form-item>
+      <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired nzFor="accountStatus">帐号状态</nz-form-label>
+      <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="请选择帐号状态!">
+        <nz-radio-group formControlName="accountStatus">
+          <label nz-radio nzValue="0">可用</label>
+          <label nz-radio nzValue="1">禁用</label>
+        </nz-radio-group>
+      </nz-form-control>
+    </nz-form-item>
+
+    <nz-form-item>
+      <nz-form-label [nzSm]="6" [nzXs]="24">头像</nz-form-label>
+      <nz-form-control [nzSm]="14" [nzXs]="24">
+        <app-img-cropper [imageUrl]="this.headPictureUrl" (imagePathBack)="headPicture($event)">
+        </app-img-cropper>
+      </nz-form-control>
+    </nz-form-item>
+
+    <nz-form-item>
+      <nz-form-label [nzSm]="6" [nzXs]="24">角色</nz-form-label>
+      <nz-form-control [nzSm]="14" [nzXs]="24">
+        <nz-tree-select formControlName="roles"
+                        [nzNodes]="roleList"
+                        nzShowExpand="false"
+                        nzCheckable nzPlaceHolder="请选择角色">
+        </nz-tree-select>
+      </nz-form-control>
+    </nz-form-item>
+
+  </form>
+
+</app-edit-modal>

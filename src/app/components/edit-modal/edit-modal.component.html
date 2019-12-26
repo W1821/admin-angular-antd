@@ -1,0 +1,20 @@
+<nz-modal
+  [nzWidth]="'70%'"
+  [(nzVisible)]="showModal"
+  nzTitle="编辑"
+  (nzOnCancel)="clickClose()"
+  (nzAfterOpen)="afterOpen()"
+  (nzOnOk)="clickOk()"
+  [nzOkText]="'保存'"
+  [nzOkLoading]="isLoading"
+  nzMaskClosable=false>
+
+  <nz-layout>
+    <nz-content>
+      <ng-content></ng-content>
+    </nz-content>
+  </nz-layout>
+
+</nz-modal>
+
+
