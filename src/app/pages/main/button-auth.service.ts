@@ -12,7 +12,7 @@ export class ButtonAuthService {
    * 获取当前页面的授权按钮
    */
   getCurrentPageButtons = (authButtons: any): any => {
-    const menu = this.mainService.getMenuListData().find(m => m.routePath === this.router.url);
+    const menu = this.mainService.getMenuDataList().find(m => m.routePath === this.router.url);
     if (!menu) {
       return authButtons;
     }
@@ -22,7 +22,6 @@ export class ButtonAuthService {
     if (pageButtons) {
       Object.keys(authButtons).forEach(ab => authButtons[ab] = !!pageButtons.find(pb => pb === ab));
     }
-    console.log('ButtonAuthService-> 当前页面的按钮', authButtons);
     return authButtons;
   };
 

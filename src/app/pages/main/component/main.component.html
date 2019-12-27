@@ -8,9 +8,10 @@
 
     <!-- 头部右边用户信息及退出 start -->
     <div class='user-info'>
+      <span class="name">欢迎您！{{this.loginService.getUserInfo.userName}}</span>
       <nz-avatar class='avatar' nzIcon='user' nzSrc="{{this.loginService.getUserInfo.headPictureUrl}}"></nz-avatar>
       <button class="opt-button" nz-button nz-dropdown [nzDropdownMenu]="menu">
-        {{this.loginService.getUserInfo.userName}}<i nz-icon nzType="down"></i>
+        更多操作<i nz-icon nzType="down"></i>
       </button>
       <nz-dropdown-menu #menu="nzDropdownMenu">
         <ul nz-menu>
@@ -23,7 +24,7 @@
 
     <!-- 头部一级菜单 start -->
     <ul nz-menu nzTheme="dark" nzMode="horizontal" class="header-menu">
-      <li *ngFor="let menu of this.mainService.getMenuTreeData();"
+      <li *ngFor="let menu of this.mainService.getMenuDataTree();"
           nz-menu-item
           (click)="clickHeaderMenu(menu)"
           nzSelected="{{menu.isChecked}}">

@@ -25,10 +25,6 @@ export class LoginService {
   constructor(private httpService: HttpService, private sessionStorageService: SessionStorageService) {
   }
 
-  autoLogin(): Promise<any> {
-    return this.httpService.getNotHandleError('system/login').then(this.loginSuccess, this.loginError);
-  }
-
   /**
    * 发送登录请求
    */
@@ -51,7 +47,7 @@ export class LoginService {
    * 清理缓存
    */
   private clearLoginInfo(): void {
-    this.sessionStorageService.set(this.USER, null);
+    this.sessionStorageService.clear();
   }
 
   /**
@@ -68,7 +64,6 @@ export class LoginService {
    * 登录失败处理逻辑
    */
   private loginError = (error: ServerResponse | HttpError): ServerResponse | HttpError => {
-    console.log('loginError', error);
     return error;
   };
 

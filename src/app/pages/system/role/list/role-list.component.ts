@@ -31,7 +31,7 @@ export class RoleListComponent implements OnInit {
   // 分页参数
   pageBody = {
     index: 1,
-    size: 8,
+    size: 9,
   };
   // 总行数
   totalRows = 1;

@@ -31,7 +31,7 @@ export class UserListComponent implements OnInit {
   // 分页参数
   pageBody = {
     index: 1,
-    size: 7,
+    size: 8,
   };
   // 总行数
   totalRows = 1;

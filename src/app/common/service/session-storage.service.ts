@@ -28,4 +28,8 @@ export class SessionStorageService {
     this.sessionStorage.removeItem(key);
   };
 
+  clear = () => {
+    this.sessionStorage.clear();
+  };
+
 }

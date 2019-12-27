@@ -70,7 +70,7 @@ export class AuthGuard implements CanActivate, CanActivateChild {
     if (this.isIgnoreUrl(url)) {
       return true;
     }
-    return this.contains(this.mainService.getMenuListData(), url);
+    return this.contains(this.mainService.getMenuDataList(), url);
   };
 
   private contains = (menus: Menu[], url: string): boolean => {

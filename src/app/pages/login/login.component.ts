@@ -31,31 +31,21 @@ export class LoginComponent implements OnInit {
 
     this.validateForm = this.fb.group({
       userName: ['15256639988', [Validators.required]],
-      password: ['2', [Validators.required]],
+      password: ['1', [Validators.required]],
       remember: [true]
     });
 
     this.route.params.subscribe((params: Params) => {
-
-      // 存在type表示不需要自动登录
       if (params.type) {
-        console.log('LoginComponent ngOnInit 不需要自动登录', params);
-        this.loginService.logout();
-        return;
+        this.loginService.logout().then();
       }
-
-      this.loginService.autoLogin().then(msg => {
-        if (msg.success) {
-          this.loginSuccess();
-        }
-      });
     });
   }
 
   /**
    * 登录方法
    */
-  login() {
+  login = () => {
     for (const i of Object.keys(this.validateForm.controls)) {
       this.validateForm.controls[i].markAsDirty();
       this.validateForm.controls[i].updateValueAndValidity();
@@ -85,7 +75,7 @@ export class LoginComponent implements OnInit {
           this.loginError(response);
         }
       });
-  }
+  };
 
   private loginSuccess = (): void => {
     // 登陆成功，跳转到main页面，main页面默认打开第一个菜单

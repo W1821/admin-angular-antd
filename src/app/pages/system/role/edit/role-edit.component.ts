@@ -145,11 +145,11 @@ export class RoleEditComponent implements OnInit {
   };
 
   private initMenuTreeList = () => {
-    this.menuTreeList = this.mainService.getMenuTreeData().map(menu => this.menuService.getTreeItem(menu));
+    this.menuTreeList = this.mainService.getMenuDataTree().map(menu => this.menuService.getTreeItem(menu));
   };
 
   private expandTree = (menuIds: string[]): void => {
-    const pidsArr = this.mainService.getMenuListData()
+    const pidsArr = this.mainService.getMenuDataList()
       .filter(e => menuIds.findIndex(id => id === '' + e.id) >= 0 && e.pids)
       .map(e => e.pids);
     const pidList = menuIds.concat(...pidsArr.map(pids => pids.split(',')));

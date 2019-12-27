@@ -12,11 +12,11 @@ nz-header {
 }
 
 nz-breadcrumb {
-  margin: 16px 0;
+  margin: 8px 0;
 }
 
 nz-content {
-  padding: 24px;
+  padding: 16px;
   background: #fff;
   overflow-y:scroll
 }
@@ -29,6 +29,7 @@ nz-sider {
 }
 
 nz-footer {
+  padding: 12px;
   text-align: center;
 }
 
@@ -73,12 +74,18 @@ nz-footer {
 }
 
 .user-info {
-  width: 200px;
   height: 32px;
   line-height: 32px;
-  margin: 16px 0 0 0;
+  margin: 16px 16px 0 0;
   float: right;
   font-size: 24px;
+}
+
+.user-info .name{
+  float: left;
+  font-size: 16px;
+  color: #fff;
+  margin-right: 8px;
 }
 
 .user-info .avatar {

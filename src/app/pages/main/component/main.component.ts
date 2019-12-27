@@ -5,7 +5,6 @@ import {MainService} from '../main.service';
 import {LoginService} from '../../login/login.service';
 
 import {Menu} from '../../system/menu/menu.model';
-import {SessionStorageService} from '../../../common/service/session-storage.service';
 
 @Component({
   selector: 'app-main',
@@ -108,7 +107,7 @@ export class MainComponent implements OnInit {
    */
   private checkedHeaderMenu = (menu: Menu): void => {
     // 取消其他头部菜单的选中状态
-    this.mainService.getMenuTreeData().forEach(m => m.isChecked = false);
+    this.mainService.getMenuDataTree().forEach(m => m.isChecked = false);
     // 设置当前头部菜单选中状态
     menu.isChecked = true;
   };
@@ -124,7 +123,7 @@ export class MainComponent implements OnInit {
     }
 
     // 点击默认的头部菜单
-    const headerMenu = this.mainService.getMenuTreeData()[0];
+    const headerMenu = this.mainService.getMenuDataTree()[0];
     this.clickHeaderMenu(headerMenu);
 
     // 点击默认左边二级菜单
@@ -164,23 +163,26 @@ export class MainComponent implements OnInit {
     if (!redirectUrl) {
       return false;
     }
-    const subMenu = this.mainService.getMenuListData().find(menu => menu.routePath === redirectUrl);
-    if (!subMenu) {
-      return false;
-    }
-    const leftMenu = this.mainService.getMenuListData().find(menu => menu.id === subMenu.pid);
-    if (!leftMenu) {
-      return false;
-    }
-    const headerMenu = this.mainService.getMenuTreeData().find(menu => menu.id === leftMenu.pid);
-    if (!headerMenu) {
+    console.log('MainComponent->F5刷新逻辑');
+
+    const currentMenu = this.mainService.getMenuDataList().find(menu => menu.routePath === redirectUrl);
+    if (!currentMenu) {
       return false;
     }
 
-    console.log('MainComponent->F5刷新逻辑');
+    const headerMenuId = currentMenu.pids.split(',')[0];
+    const headerMenu = this.mainService.getMenuDataTree().find(menu => menu.id + '' === headerMenuId);
+    if (!headerMenu) {
+      return false;
+    }
     this.clickHeaderMenu(headerMenu);
+
+    const leftMenu = this.leftMenuDataArr.find(menu => menu.id === currentMenu.pid);
     this.clickLeftMenu(leftMenu);
+
+    const subMenu = leftMenu.children.find(menu => menu.id === currentMenu.id);
     this.clickSubMenu(subMenu);
+
     return true;
   }
 

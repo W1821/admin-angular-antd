@@ -80,19 +80,12 @@ export class HttpService {
 
   private handleError = (error: ServerResponse | HttpError, needNotice = true): ServerResponse | HttpError => {
     console.log('HttpService handleError', error, typeof error, needNotice);
-
-    // 如果请求需要通知
-    if (needNotice) {
-
-      if (error instanceof HttpError) {
-        this.handleHttpError(error);
-      }
-
-      if (error instanceof ServerResponse) {
-        this.handleServerResponseError(error);
-      }
+    if (error instanceof HttpError) {
+      this.handleHttpError(error, needNotice);
     }
-
+    if (error instanceof ServerResponse) {
+      this.handleServerResponseError(error, needNotice);
+    }
     return error;
 
   };
@@ -101,23 +94,38 @@ export class HttpService {
   /**
    * http请求失败
    */
-  private handleHttpError = (httpError: HttpError) => {
+  private handleHttpError = (httpError: HttpError, needNotice: boolean) => {
     console.log('HttpService handleHttpError', httpError);
     const status = httpError.status;
     if (status === 401) {
-      this.noticeService.error('未登录状态，请登录');
+      if (needNotice) {
+        this.noticeService.error('未登录状态，请登录');
+      }
       this.router.navigate(['login', 1]);
       return;
     }
-    this.noticeService.error(status + '错误,请联系管理员');
+    if (needNotice) {
+      this.noticeService.error(status + '错误,请联系管理员');
+    }
   };
 
   /**
    * 处理服务端返回的逻辑错误
    */
-  private handleServerResponseError = (serverResponse: ServerResponse) => {
+  private handleServerResponseError = (serverResponse: ServerResponse, needNotice: boolean) => {
     console.log('HttpService handleServerResponseError', serverResponse);
-    this.noticeService.error(serverResponse.code + '错误！' + serverResponse.msg);
+    const status = serverResponse.code;
+    if (status === 401) {
+      if (needNotice) {
+        this.noticeService.error('未登录状态，请登录');
+      }
+      this.router.navigate(['login', 1]);
+      return;
+    }
+
+    if (needNotice) {
+      this.noticeService.error(serverResponse.code + '错误！' + serverResponse.msg);
+    }
   };
 
 
