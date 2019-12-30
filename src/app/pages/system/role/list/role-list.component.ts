@@ -57,7 +57,7 @@ export class RoleListComponent implements OnInit {
   }
 
   // 查询
-  search = () => {
+  search = (): void => {
     if (!this.authButtons.search) {
       return;
     }
@@ -66,15 +66,15 @@ export class RoleListComponent implements OnInit {
     this.getList();
   };
 
-  add = () => {
+  add = (): void => {
     this.roleEdit.openAddModal();
   };
 
-  edit = (item) => {
+  edit = (item): void => {
     this.roleEdit.openEditModal(item.id);
   };
 
-  delete = (item) => {
+  delete = (item): void => {
     this.roleService.delete(item.id).then(res => {
       if (res) {
         this.search();
@@ -82,7 +82,7 @@ export class RoleListComponent implements OnInit {
     });
   };
 
-  onPageIndexChange = () => {
+  onPageIndexChange = (): void => {
     this.getList();
   };
 
@@ -96,7 +96,7 @@ export class RoleListComponent implements OnInit {
   /**
    * 获取数据
    */
-  private getList = () => {
+  private getList = (): void => {
     const body = {...this.searchBody, ...this.pageBody};
     this.roleService.list(body).then(res => {
       if (!res) {

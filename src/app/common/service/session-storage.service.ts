@@ -28,7 +28,7 @@ export class SessionStorageService {
     this.sessionStorage.removeItem(key);
   };
 
-  clear = () => {
+  clear = (): void => {
     this.sessionStorage.clear();
   };
 

@@ -39,18 +39,18 @@ export class EditModalComponent {
   /**
    * 关闭弹窗
    */
-  clickClose(): void {
+  clickClose = (): void => {
     this.showModal = !this.showModal;
     this.showModalChange.emit(this.showModal);
     // 重置表单
     this.formGroup.reset();
     this.afterClose();
-  }
+  };
 
   /**
    * 点击确认按钮
    */
-  clickOk(): void {
+  clickOk = (): void => {
     if (this.isLoading) {
       return;
     }
@@ -74,6 +74,6 @@ export class EditModalComponent {
         this.clickClose();
       }
     });
-  }
+  };
 
 }

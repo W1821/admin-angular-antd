@@ -13,13 +13,13 @@ export class SearchFormComponent {
   constructor() {
   }
 
-  clear = () => {
+  clear = (): void => {
     Object.keys(this.searchBody).forEach((key) => {
       this.searchBody[key] = null;
     });
   };
 
-  doSearch = () => {
+  doSearch = (): void => {
     this.searchFunction();
   };
 

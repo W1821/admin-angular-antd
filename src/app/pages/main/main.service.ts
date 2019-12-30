@@ -3,6 +3,7 @@ import {HttpService} from '../../common/service/http.service';
 import {MenuService} from '../system/menu/menu.service';
 import {SessionStorageService} from '../../common/service/session-storage.service';
 import {Menu} from '../system/menu/menu.model';
+import {ServerResponse} from '../../common/model/server.response';
 
 @Injectable()
 export class MainService {
@@ -23,7 +24,7 @@ export class MainService {
     return this.sessionStorageService.get(this.REDIRECT_URL);
   };
 
-  setRedirectUrl = (redirectUrl): void => {
+  setRedirectUrl = (redirectUrl: string): void => {
     this.sessionStorageService.set(this.REDIRECT_URL, redirectUrl);
   };
 
@@ -38,7 +39,7 @@ export class MainService {
   /**
    * 处理用户的菜单数据
    */
-  init(): Promise<any> {
+  init = (): Promise<any> => {
     const redirectUrl = this.getRedirectUrl();
     if (redirectUrl) {
       this.menuDataList = this.sessionStorageService.get(this.MENU_DATA_LIST);
@@ -47,18 +48,18 @@ export class MainService {
     }
     // 这里从后台数据库读取
     return this.httpService.get('/menu/main/list').then(this.setMenuData, error => error);
-  }
+  };
 
   /**
    * 修改密码
    * @param data 请求体
    */
-  modifyPwd(data: any): Promise<any> {
+  modifyPwd = (data: any): Promise<any> => {
     return this.httpService.post('/user/modify/ownPwd', data);
-  }
+  };
 
 
-  private setMenuData = (response): void => {
+  private setMenuData = (response: ServerResponse | null): void => {
     if (response) {
       this.menuDataList = this.menuService.getSortedMenuList(response.data);
       this.menuDataTree = this.menuService.getMenuTree(this.menuDataList);

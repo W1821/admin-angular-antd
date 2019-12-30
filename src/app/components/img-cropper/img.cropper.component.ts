@@ -66,17 +66,17 @@ export class ImgCropperComponent implements OnInit, OnDestroy {
   /**
    * 关闭弹窗
    */
-  handleUploadImageCancel() {
+  handleUploadImageCancel = (): void => {
     this.showUploadImageModal = false;
     // 图片裁剪销毁，这2行代码可以解决多个bug。
     this.selectedImageUrl = undefined;
     this.angularCropper.cropper.destroy();
-  }
+  };
 
   /**
    * 点击确认按钮处理逻辑
    */
-  handleUploadImageOk() {
+  handleUploadImageOk = (): void => {
     const croppedImageUrl = this.angularCropper.cropper.getCroppedCanvas().toDataURL();
     if (this.uploadImage) {
       // 上传图片，返回图片访问相对地址
@@ -85,7 +85,7 @@ export class ImgCropperComponent implements OnInit, OnDestroy {
       // 裁剪图片返回base64格式字符串
       this.crop(croppedImageUrl);
     }
-  }
+  };
 
   /**
    * 图片上传前处理逻辑
@@ -103,7 +103,7 @@ export class ImgCropperComponent implements OnInit, OnDestroy {
   /**
    * 上传文件
    */
-  upload = (croppedImageUrl: string): void  => {
+  upload = (croppedImageUrl: string): void => {
     this.isUploadImageLoading = true;
     const body = {file: croppedImageUrl};
     this.httpService.post(this.uploadUrl, body).then(this.uploadImageSuccess);

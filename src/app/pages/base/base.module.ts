@@ -8,14 +8,12 @@ import {WelcomeComponent} from './welcome/welcome.component';
 import {ErrorComponent} from './error/error.component';
 // base模块
 import {BaseRoutingModule} from './base-routing.module';
-import {EmptyComponent} from './empty/empty.component';
 
 
 @NgModule({
   declarations: [
     WelcomeComponent,
     ErrorComponent,
-    EmptyComponent,
   ],
   imports: [
     CommonModule,

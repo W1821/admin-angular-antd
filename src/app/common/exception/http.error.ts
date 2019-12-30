@@ -4,10 +4,10 @@
 export class HttpError {
 
   // 响应状态码
-  status;
+  status: number;
 
   // 响应状态描述
-  statusText;
+  statusText: string;
 
   constructor(status, statusText) {
     this.status = status;

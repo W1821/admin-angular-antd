@@ -33,7 +33,7 @@ export class HttpService {
     return this.handleResponse(promise);
   };
 
-  post = (url, body?: {}, headers?: {}): Promise<any> => {
+  post = (url: string, body?: {}, headers?: {}): Promise<any> => {
     const promise = this.httpUtil.post(url, body, headers).then(
       response => this.handleSuccess(response),
       response => this.handleError(response)
@@ -41,7 +41,7 @@ export class HttpService {
     return this.handleResponse(promise);
   };
 
-  postNotHandleError = (url, body?: {}, headers?: {}): Promise<any> => {
+  postNotHandleError = (url: string, body?: {}, headers?: {}): Promise<any> => {
     const promise = this.httpUtil.post(url, body, headers).then(
       response => this.handleSuccess(response),
       response => this.handleError(response, false)
@@ -94,7 +94,7 @@ export class HttpService {
   /**
    * http请求失败
    */
-  private handleHttpError = (httpError: HttpError, needNotice: boolean) => {
+  private handleHttpError = (httpError: HttpError, needNotice: boolean): void => {
     console.log('HttpService handleHttpError', httpError);
     const status = httpError.status;
     if (status === 401) {
@@ -112,7 +112,7 @@ export class HttpService {
   /**
    * 处理服务端返回的逻辑错误
    */
-  private handleServerResponseError = (serverResponse: ServerResponse, needNotice: boolean) => {
+  private handleServerResponseError = (serverResponse: ServerResponse, needNotice: boolean): void => {
     console.log('HttpService handleServerResponseError', serverResponse);
     const status = serverResponse.code;
     if (status === 401) {

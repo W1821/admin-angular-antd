@@ -9,19 +9,19 @@ export class HttpUtil {
   constructor(public http: HttpClient) {
   }
 
-  public get = (url, params, options): Promise<any> => {
+  public get = (url: string, params, options): Promise<any> => {
     url = this.getUrlParams(url, params);
     return new Promise((resolve, reject) => this.doGet(url, options, resolve, reject));
   };
 
-  public post = (url, body, options): Promise<any> => {
+  public post = (url: string, body, options): Promise<any> => {
     return new Promise((resolve, reject) => this.doPost(url, body, options, resolve, reject));
   };
 
 
   /** ========================================= 私有方法 ========================================= */
 
-  private getUrlParams = (url, params): string => {
+  private getUrlParams = (url: string, params: object): string => {
     if (params) {
       const paramsArray = [];
       Object.keys(params).forEach(key => paramsArray.push(key + '=' + params[key]));
@@ -34,12 +34,12 @@ export class HttpUtil {
     return url;
   };
 
-  private doGet = (url, options, resolve, reject): void => {
+  private doGet = (url: string, options, resolve, reject): void => {
     const promise = this.http.get(url, options).toPromise();
     this.handlePromise(promise, resolve, reject);
   };
 
-  private doPost = (url, body, options, resolve, reject): void => {
+  private doPost = (url: string, body, options, resolve, reject): void => {
     const promise = this.http.post(url, body, options).toPromise();
     this.handlePromise(promise, resolve, reject);
   };
@@ -70,7 +70,7 @@ export class HttpUtil {
   /**
    * http请求响应码200，需要处理服务逻辑错误
    */
-  private handleResponse = (response, resolve, reject): void => {
+  private handleResponse = (response: ServerResponse, resolve, reject): void => {
     if (response.success) {
       // 服务端的逻辑正确
       resolve(response);
