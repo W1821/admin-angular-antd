@@ -128,5 +128,8 @@
       }
     }
   },
-  "defaultProject": "admin-angular-antd"
+  "defaultProject": "admin-angular-antd",
+  "cli": {
+    "analytics": false
+  }
 }
